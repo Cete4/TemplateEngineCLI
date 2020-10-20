@@ -10,6 +10,13 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+//Declare Global Variables
+
+let manager;
+let engineer;
+let intern;
+
+let team;
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -18,6 +25,75 @@ console.log(intern.school);
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
+
+// TODO: Comment this
+function clearTeam() {
+    team = [];
+    clearManager();
+    clearEngineer();
+    clearIntern();
+}
+
+// TODO: Comment this
+function clearManager() {
+    manager = {
+        name: "",
+        id: "",
+        email: "",
+        officeNumber: ""
+    }
+}
+// TODO: Comment this
+function clearEngineer() {
+    manager = {
+        name: "",
+        id: "",
+        email: "",
+        github: ""
+    }
+}
+// TODO: Comment this
+function clearIntern() {
+    manager = {
+        name: "",
+        id: "",
+        email: "",
+        school: ""
+    }
+}
+
+
+
+function promptUser() {
+
+
+    return inquirer.prompt([
+
+        {
+            type: "checkbox",
+            name: "employee",
+            message: "What type of employee do you want to create?",
+            choices: [
+                "Manager",
+                "Intern",
+                "Engineer",
+            ]
+        }
+    ]);
+}
+
+promptUser()
+    .then(function (answers) {
+
+        return writeFileAsync("team.html", render(answers));
+    })
+    .then(function () {
+        console.log("Successfully wrote to team.html");
+    })
+    .catch(function (err) {
+        console.log(err);
+    });
+
 
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
