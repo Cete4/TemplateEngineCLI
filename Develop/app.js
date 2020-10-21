@@ -41,18 +41,20 @@ function clearManager() {
         officeNumber: ""
     }
 }
+
 // TODO: Comment this
 function clearEngineer() {
-    manager = {
+    engineer = {
         name: "",
         id: "",
         email: "",
         github: ""
     }
 }
+
 // TODO: Comment this
 function clearIntern() {
-    manager = {
+    intern = {
         name: "",
         id: "",
         email: "",
@@ -63,35 +65,83 @@ function clearIntern() {
 
 
 function promptUser() {
+    inquirer
+        .prompt([
+            {
+                type: "list",
+                name: "employee",
+                message: "What type of employee do you want to create or quit the program?",
+                choices: [
+                    "Manager",
+                    "Intern",
+                    "Engineer",
+                    "Exit"
+                ]
+            }
+        ])
+        .then((res) => {
+            if (res.employee === "Manager") {
+                clearTeam();
+                makeManager();
+            } else if (res.employee === "Intern") {
+                clearTeam();
+                makeIntern();
+            } else if (res.employee === "Engineer") {
+                clearTeam();
+                makeEngineer();
+            }
+        });
+};
 
-
-    return inquirer.prompt([
-
-        {
-            type: "checkbox",
-            name: "employee",
-            message: "What type of employee do you want to create?",
-            choices: [
-                "Manager",
-                "Intern",
-                "Engineer",
-            ]
-        }
-    ]);
+// TODO: Comment this 
+function makeManager() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                name: "name",
+                message: "What is the name of your Manager?"
+            },
+            {
+                type: "input",
+                name: "id",
+                message: "What is the id of your Manager?"
+            },
+            {
+                type: "input",
+                name: "email",
+                message: "What is the email of your Manager?"
+            },
+            {
+                type: "input",
+                name: "officeNumber",
+                message: "What is the officeNumber of your Manager?"
+            }
+        ])
+        .then((res) => {
+            manager.name = res.name;
+            manager.id = res.id;
+            manager.email = res.email;
+            manager.officeNumber = res.officeNumber;
+            team.push(manager);
+            console.log(team);
+        })
 }
 
-promptUser()
-    .then(function (answers) {
 
-        return writeFileAsync("team.html", render(answers));
-    })
-    .then(function () {
-        console.log("Successfully wrote to team.html");
-    })
-    .catch(function (err) {
-        console.log(err);
-    });
+promptUser();
 
+console.log(team);
+// .then(function (answers) {
+
+//     return writeFileAsync("team.html", render(answers));
+// })
+// .then(function () {
+//     console.log("Successfully wrote to team.html");
+// })
+// .catch(function (err) {
+//     console.log(err);
+// });
 
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
