@@ -13,11 +13,8 @@ const render = require("./lib/htmlRenderer");
 
 //Declare Global Variables
 
-let manager;
-let engineer;
-let intern;
 
-employees = [];
+const employees = [];
 
 
 // Write code to use inquirer to gather information about the development team members,
@@ -84,20 +81,17 @@ function promptUser() {
         .then((res) => {
             if (res.employee === "Manager") {
                 makeManager();
-                clearManager();
             } else if (res.employee === "Intern") {
                 makeIntern();
-                clearIntern();
             } else if (res.employee === "Engineer") {
                 makeEngineer();
-                clearEngineer();
-            } else {
+            } else if (res.employee === "Exit") {
                 if (!fs.existsSync(OUTPUT_DIR)) {
                     fs.mkdirSync(OUTPUT_DIR)
                     console.log(`! Creating output directory ${OUTPUT_DIR}`)
                 }
                 fs.writeFile(outputPath, render(employees), function (err) {
-                    console.log(`! Writing to file ${outputPath}\n! END\n`)
+                    console.log(`! File created in ${outputPath}\n! END\n`)
                     if (err) throw err
                 })
                 console.log
@@ -131,11 +125,7 @@ function makeManager() {
             }
         ])
         .then((res) => {
-            manager.name = res.name;
-            manager.id = res.id;
-            manager.email = res.email;
-            manager.officeNumber = res.officeNumber;
-            employees.push(manager);
+            employees.push(new Manager(res.name, res.id, res.email, res.officeNumber));
             promptUser();
         })
 }
@@ -166,11 +156,7 @@ function makeEngineer() {
             }
         ])
         .then((res) => {
-            engineer.name = res.name;
-            engineer.id = res.id;
-            engineer.email = res.email;
-            engineer.github = res.github;
-            employees.push(engineer);
+            employees.push(new Engineer(res.name, res.id, res.email, res.github));
             promptUser();
         })
 }
@@ -201,11 +187,7 @@ function makeIntern() {
             }
         ])
         .then((res) => {
-            intern.name = res.name;
-            intern.id = res.id;
-            intern.email = res.email;
-            intern.school = res.school;
-            employees.push(intern);
+            employees.push(new Intern(res.name, res.id, res.email, res.school));
             promptUser();
         })
 }
