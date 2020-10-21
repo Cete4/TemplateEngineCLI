@@ -16,7 +16,7 @@ let manager;
 let engineer;
 let intern;
 
-let team;
+let team = [];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -81,14 +81,17 @@ function promptUser() {
         ])
         .then((res) => {
             if (res.employee === "Manager") {
-                clearTeam();
                 makeManager();
+                clearManager();
             } else if (res.employee === "Intern") {
-                clearTeam();
                 makeIntern();
+                clearIntern();
             } else if (res.employee === "Engineer") {
-                clearTeam();
                 makeEngineer();
+                clearEngineer();
+            } else {
+                clearTeam();
+                return;
             }
         });
 };
@@ -125,6 +128,7 @@ function makeManager() {
             manager.officeNumber = res.officeNumber;
             team.push(manager);
             console.log(team);
+            promptUser();
         })
 }
 
@@ -159,6 +163,7 @@ function makeEngineer() {
             engineer.email = res.email;
             engineer.github = res.github;
             team.push(engineer);
+            promptUser();
         })
 }
 
@@ -193,7 +198,7 @@ function makeIntern() {
             intern.email = res.email;
             intern.school = res.school;
             team.push(intern);
-
+            promptUser();
         })
 }
 
