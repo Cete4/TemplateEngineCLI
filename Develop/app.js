@@ -158,8 +158,42 @@ function makeEngineer() {
             engineer.id = res.id;
             engineer.email = res.email;
             engineer.github = res.github;
-            team.push(manager);
-            console.log(team);
+            team.push(engineer);
+        })
+}
+
+// TODO: Comment this 
+function makeIntern() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                name: "name",
+                message: "What is the name of your Intern?"
+            },
+            {
+                type: "input",
+                name: "id",
+                message: "What is the id of your Intern?"
+            },
+            {
+                type: "input",
+                name: "email",
+                message: "What is the email of your Intern?"
+            },
+            {
+                type: "input",
+                name: "school",
+                message: "What is the school of your Intern?"
+            }
+        ])
+        .then((res) => {
+            intern.name = res.name;
+            intern.id = res.id;
+            intern.email = res.email;
+            intern.school = res.school;
+            team.push(intern);
+
         })
 }
 
