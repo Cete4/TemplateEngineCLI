@@ -128,6 +128,41 @@ function makeManager() {
         })
 }
 
+// TODO: Comment this 
+function makeEngineer() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                name: "name",
+                message: "What is the name of your Engineer?"
+            },
+            {
+                type: "input",
+                name: "id",
+                message: "What is the id of your Engineer?"
+            },
+            {
+                type: "input",
+                name: "email",
+                message: "What is the email of your Engineer?"
+            },
+            {
+                type: "input",
+                name: "github",
+                message: "What is the github of your Engineer?"
+            }
+        ])
+        .then((res) => {
+            engineer.name = res.name;
+            engineer.id = res.id;
+            engineer.email = res.email;
+            engineer.github = res.github;
+            team.push(manager);
+            console.log(team);
+        })
+}
+
 
 promptUser();
 
