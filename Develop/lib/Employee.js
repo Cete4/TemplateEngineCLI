@@ -21,7 +21,7 @@ class Employee {
     }
 
     getRole() {
-        return "Employee"
+        return this.constructor.name;
     }
 }
 
