@@ -85,7 +85,7 @@ function promptUser() {
                     console.log(`! Creating output directory ${OUTPUT_DIR}`)
                 }
                 fs.writeFile(outputPath, render(employees), function (err) {
-                    console.log(`! File created in ${outputPath}\n! END\n`)
+                    console.log(`! File created in ${outputPath}\n! Exited\n`)
                     if (err) throw err
                 })
             }
